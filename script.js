@@ -4,8 +4,8 @@ const exclude = document.querySelector("button#exclude");
 const array = [];
 
 function submitInput() {
-  const text = input.value;
-  if (text.length === 0) {
+  const text = input.value.trim();
+  if (!text.length) {
     return alert("Digite algo!");
   }
   array.push(text);
@@ -14,17 +14,16 @@ function submitInput() {
   input.focus();
 }
 function excludeInput() {
-  if (array.length === 0) {
-    return alert("Não a intens a serem removidos");
+  if (!array.length) {
+    return alert("Não há elemento a ser excluído!");
   }
-  array.forEach((element, index) => {
-    if (element !== input.value) {
-      alert("Não existe esse elemento!");
-    } else {
-      const apagar = array.splice(index, 1);
-      console.log(apagar), console.log(array);
-      input.value = "";
-      input.focus();
-    }
-  });
+  const index = array.indexOf(input.value.trim());
+
+  if (index === -1) {
+    return alert("Esse elemento não se encontra na lista!");
+  }
+  const apagar = array.splice(index, 1);
+  console.log(apagar, array);
+  input.value = "";
+  input.focus();
 }
